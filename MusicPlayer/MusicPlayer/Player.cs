@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MusicPlayer.Extensions;
 
 namespace MusicPlayer
 {
@@ -159,39 +160,48 @@ namespace MusicPlayer
             return song;
         }
 
-        public List<Song> Shuffle(List<Song> songs)
+        public void Shuffle()
         {
-            List<Song> newSong = new List<Song>();
-            Random rand = new Random();
-            int count = 0;
-            while (songs.Count >= 1)
-            {
-                count = rand.Next(songs.Count);
-                newSong.Add(songs[count]);
-                songs.RemoveAt(count);
-            }
-            return newSong;
+            Song.Shuffle();
         }
 
-        public List<Song> SortByTitle(List<Song> songs)
+        public void Sort()
         {
-            List<string> songName = new List<string>();
-            foreach (var i in songs)
-            {
-                songName.Add(i.Name);
-            }
-            songName.Sort();
-            List<Song> newListSongs = new List<Song>();
-            for (int i = 0; i < songName.Count; i++)
-            {
-                if (songName[i] == songs[i].Name)
-                {
-                    newListSongs.Add(songs[i]);
-                }
-            }
-            var sortedName = newListSongs.OrderBy(u => u.Name).ToList();
-            return sortedName;
+            Song.Sort();
         }
+        //public List<Song> Shuffle(List<Song> songs)
+        //{
+        //    List<Song> newSong = new List<Song>();
+        //    Random rand = new Random();
+        //    int count = 0;
+        //    while (songs.Count >= 1)
+        //    {
+        //        count = rand.Next(songs.Count);
+        //        newSong.Add(songs[count]);
+        //        songs.RemoveAt(count);
+        //    }
+        //    return newSong;
+        //}
+
+        //public List<Song> SortByTitle(List<Song> songs)
+        //{
+        //    List<string> songName = new List<string>();
+        //    foreach (var i in songs)
+        //    {
+        //        songName.Add(i.Name);
+        //    }
+        //    songName.Sort();
+        //    List<Song> newListSongs = new List<Song>();
+        //    for (int i = 0; i < songName.Count; i++)
+        //    {
+        //        if (songName[i] == songs[i].Name)
+        //        {
+        //            newListSongs.Add(songs[i]);
+        //        }
+        //    }
+        //    var sortedName = newListSongs.OrderBy(u => u.Name).ToList();
+        //    return sortedName;
+        //}
 
         //BL8-Player1/3.SongTuples
         public void IncludeTheSong(Song song)//песня, которую необходимо включить
@@ -223,14 +233,21 @@ namespace MusicPlayer
             }
         }
 
-        //BL8-P3/3.Anonymous
-        public object GetSongData_2(Song song)
+        ////BL8-P3/3.Anonymous
+        //public object GetSongData_2(Song song)
+        //{
+        //    var durationMinutes = song.Duration / 60;
+        //    var durationSeconds = song.Duration % 60;
+        //    var anonim = new { song.Name, song.Album.Year, durationMinutes, durationSeconds };
+        //    Console.WriteLine($"{anonim.Name} - {anonim.Year} - {anonim.durationMinutes} - {anonim.durationSeconds}");
+        //    return anonim;
+        //}
+
+        //L9-HW-Player-3/3.
+        public void GetSongData_2(Song song)
         {
-            var durationMinutes = song.Duration / 60;
-            var durationSeconds = song.Duration % 60;
-            var anonim = new { song.Name, song.Album.Year, durationMinutes, durationSeconds };
-            Console.WriteLine($"{anonim.Name} - {anonim.Year} - {anonim.durationMinutes} - {anonim.durationSeconds}");
-            return anonim;
+            (string name, _, int durationMinutes, _) = song;
+            Console.WriteLine($"{name} - {durationMinutes}");
         }
     }
 }

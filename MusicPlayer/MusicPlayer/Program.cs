@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using MusicPlayer.Extensions;
 namespace MusicPlayer
 {
     class Program
@@ -17,7 +14,7 @@ namespace MusicPlayer
             listSong.Add(song);
             TraceInfo(listSong);
 
-            listSong = player.Shuffle(listSong);
+            player.Shuffle();
             TraceInfo(listSong);
             player.Start(listSong);
             //listSong = player.SortByTitle(listSong);
@@ -31,7 +28,7 @@ namespace MusicPlayer
             //BL8-P3/3.Anonymous
             Console.WriteLine("--------------------");
             player.GetSongData_2(song);
-
+           
             //BL8-Player2/3.LikeDislike
             Console.WriteLine("--------------------");
             listSong[0].Dislike();
@@ -39,6 +36,19 @@ namespace MusicPlayer
             listSong[2].Dislike();
             listSong[4].Like();
             TraceInfo(listSong);
+
+            //L9-HW-Player-2/3.
+            Console.WriteLine("--------------------");
+            var listNameSongs = new List<string>();
+            for (int i = 0; i < listSong.Count; i++)
+            {
+                listNameSongs.Add(listSong[i].Name);              
+            }
+            for (int i = 0; i < listNameSongs.Count; i++)
+            {
+                listNameSongs[i]=listNameSongs[i].Substring_2();
+                Console.WriteLine(listNameSongs[i]);
+            }
             Console.ReadLine();
         }
 
