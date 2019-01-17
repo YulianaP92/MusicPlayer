@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MusicPlayer
 {
-    class Song
+    class Song:IComparable
     {
         public int Duration;
         public string Name;
@@ -38,6 +34,19 @@ namespace MusicPlayer
         public void Dislike()
         {
             _like = false;
+        }
+        public int CompareTo(object obj)
+        {
+            return this.Name?.CompareTo((obj as Song)?.Name) ?? 0;
+        }
+       
+        //L9-HW-Player-3/3.
+        public void Deconstruct(out string name, out int year,out int durationMinutes,out int durationSeconds)
+        {
+            name = Name;
+            year = Album.Year;
+            durationMinutes = Duration / 60;
+            durationSeconds = Duration % 60;           
         }
     }
 }
