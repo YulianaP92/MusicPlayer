@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MusicPlayer
 {
@@ -43,6 +39,7 @@ namespace MusicPlayer
         {
             return this.Name?.CompareTo((obj as Song)?.Name) ?? 0;
         }
+       
         //L9-HW-Player-3/3.
         public void Deconstruct(out string name, out int year,out int durationMinutes,out int durationSeconds)
         {

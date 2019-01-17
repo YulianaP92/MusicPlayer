@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MusicPlayer.Extensions;
 
 namespace MusicPlayer
@@ -117,11 +115,11 @@ namespace MusicPlayer
         {
             List<Artist> artists = new List<Artist>()
             {
-                new Artist("Queen", Artist.Genre.Rock),
-                new Artist("Marilyn Manson", Artist.Genre.Rock),
-                new Artist("Maroon 5", Artist.Genre.Rock),
-                new Artist("Nirvana", Artist.Genre.Rock),
-                new Artist("Green Day",Artist.Genre.Rock)
+                new Artist("Queen", "Rock"),
+                new Artist("Marilyn Manson", "Rock"),
+                new Artist("Maroon 5", "Rock"),
+                new Artist("Nirvana", "Rock"),
+                new Artist("Green Day","Rock")
             };
             List<Album> album = new List<Album>()
             {
@@ -145,7 +143,7 @@ namespace MusicPlayer
 
         public Song CreateSongs()
         {
-            var artist = new Artist("Queen", Artist.Genre.Rock);
+            var artist = new Artist("Queen", "Rock");
             var album = new Album();
             album.Name = "Bohemian Rhapsody";
             album.Year = 1975;
@@ -183,26 +181,26 @@ namespace MusicPlayer
         //    return newSong;
         //}
 
-        //public List<Song> SortByTitle(List<Song> songs)
-        //{
-        //    List<string> songName = new List<string>();
-        //    foreach (var i in songs)
-        //    {
-        //        songName.Add(i.Name);
-        //    }
-        //    songName.Sort();
-        //    List<Song> newListSongs = new List<Song>();
-        //    for (int i = 0; i < songName.Count; i++)
-        //    {
-        //        if (songName[i] == songs[i].Name)
-        //        {
-        //            newListSongs.Add(songs[i]);
-        //        }
-        //    }
-        //    var sortedName = newListSongs.OrderBy(u => u.Name).ToList();
-        //    return sortedName;
-        //}
-
+        public List<Song> SortByTitle(List<Song> songs)
+        {
+            List<string> songName = new List<string>();
+            foreach (var i in songs)
+            {
+                songName.Add(i.Name);
+            }
+            songName.Sort();
+            List<Song> newListSongs = new List<Song>();
+            for (int i = 0; i < songName.Count; i++)
+            {
+                if (songName[i] == songs[i].Name)
+                {
+                    newListSongs.Add(songs[i]);
+                }
+            }
+            var sortedName = newListSongs.OrderBy(u => u.Name).ToList();
+            return sortedName;
+        }
+       
         //BL8-Player1/3.SongTuples
         public void IncludeTheSong(Song song)//песня, которую необходимо включить
         {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MusicPlayer.Extensions
+﻿namespace MusicPlayer.Extensions
 {
     //L9-HW-Player-2/3.
     public static class StringSubstring
