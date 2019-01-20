@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MusicPlayer.Extensions;
+using MusicPlayer.Visualization;
 
 namespace MusicPlayer
 {
@@ -13,6 +14,15 @@ namespace MusicPlayer
         public bool Locked;
         public bool Playing;
         public List<Song> Song;
+        private Skin skin;
+        public Player()
+        {
+
+        }
+        public Player(Skin skin)
+        {
+            this.skin = skin;
+        }
         public int Volume
         {
             get { return _volume; }
@@ -200,7 +210,7 @@ namespace MusicPlayer
             var sortedName = newListSongs.OrderBy(u => u.Name).ToList();
             return sortedName;
         }
-       
+
         //BL8-Player1/3.SongTuples
         public void IncludeTheSong(Song song)//песня, которую необходимо включить
         {
@@ -246,6 +256,57 @@ namespace MusicPlayer
         {
             (string name, _, int durationMinutes, _) = song;
             Console.WriteLine($"{name} - {durationMinutes}");
+        }
+
+        public static Skin GetSkin()
+        {
+            Console.WriteLine("How do you want to display the list of songs?:" +
+              "\n1-Displays text line by line in standard mode" +
+              "\n2-Displays text line by line in the color you specify" +
+              "\n3-Random text color output"+
+              "\n4-Caps Lock text");
+            var variant = Console.ReadLine();
+            Skin skin;
+            switch (variant)
+            {
+                case "1":
+                    skin = new ClassicSkin();
+                    break;
+                case "2":
+                    skin = new ColorSkin(ConsoleColor.Green);
+                    break;
+                case "3":
+                    skin = new ColorSkin_2();
+                    break;
+                case "4":
+                    skin = new СapslockSkin();
+                    break;
+                default:
+                    skin = new ClassicSkin();
+                    break;
+            }
+            return skin;
+        }
+        public void TraceInfo(List<Song> Song)
+        {
+            skin.Clear();
+            foreach (var i in Song)
+            {
+                skin.Render(SkinString(i));
+            }
+        }
+
+        public static string SkinString(Song song)
+        {
+            string list;
+            list = $"Name Artist: {song.Artist.Name}\n" +
+            $"Name song: {song.Name}\n" +
+            $"Genre: {song.Artist._Genre}\n" +
+            $"Album: {song.Album.Name}\n" +
+            $"Year of album release: {song.Album.Year}\n" +
+            $"Duration song: {song.Duration} second\n" +
+            $"Lyrics: {song.Lyrics}\n\n";
+            return list;
         }
     }
 }
