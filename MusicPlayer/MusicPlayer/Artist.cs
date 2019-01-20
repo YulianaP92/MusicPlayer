@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MusicPlayer
+﻿namespace MusicPlayer
 {
     class Artist
     {
@@ -19,11 +13,12 @@ namespace MusicPlayer
             Hip_hop
         }
         public string Name;
-        public Genre _Genre;
-        public Artist(string name, Genre genre)
+        public string _Genre;
+        public Artist(string name, string genre)
         {
             Name = name;
             _Genre = genre;
         }
+
     }
 }

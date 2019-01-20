@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MusicPlayer.Extensions;
+using MusicPlayer.Visualization;
 
 namespace MusicPlayer
 {
@@ -14,6 +14,15 @@ namespace MusicPlayer
         public bool Locked;
         public bool Playing;
         public List<Song> Song;
+        private Skin skin;
+        public Player()
+        {
+
+        }
+        public Player(Skin skin)
+        {
+            this.skin = skin;
+        }
         public int Volume
         {
             get { return _volume; }
@@ -116,11 +125,11 @@ namespace MusicPlayer
         {
             List<Artist> artists = new List<Artist>()
             {
-                new Artist("Queen", Artist.Genre.Rock),
-                new Artist("Marilyn Manson", Artist.Genre.Rock),
-                new Artist("Maroon 5", Artist.Genre.Rock),
-                new Artist("Nirvana", Artist.Genre.Rock),
-                new Artist("Green Day",Artist.Genre.Rock)
+                new Artist("Queen", "Rock"),
+                new Artist("Marilyn Manson", "Rock"),
+                new Artist("Maroon 5", "Rock"),
+                new Artist("Nirvana", "Rock"),
+                new Artist("Green Day","Rock")
             };
             List<Album> album = new List<Album>()
             {
@@ -144,7 +153,7 @@ namespace MusicPlayer
 
         public Song CreateSongs()
         {
-            var artist = new Artist("Queen", Artist.Genre.Rock);
+            var artist = new Artist("Queen", "Rock");
             var album = new Album();
             album.Name = "Bohemian Rhapsody";
             album.Year = 1975;
@@ -159,19 +168,28 @@ namespace MusicPlayer
             return song;
         }
 
-        public List<Song> Shuffle(List<Song> songs)
+        public void Shuffle()
         {
-            List<Song> newSong = new List<Song>();
-            Random rand = new Random();
-            int count = 0;
-            while (songs.Count >= 1)
-            {
-                count = rand.Next(songs.Count);
-                newSong.Add(songs[count]);
-                songs.RemoveAt(count);
-            }
-            return newSong;
+            Song.Shuffle();
         }
+
+        public void Sort()
+        {
+            Song.Sort();
+        }
+        //public List<Song> Shuffle(List<Song> songs)
+        //{
+        //    List<Song> newSong = new List<Song>();
+        //    Random rand = new Random();
+        //    int count = 0;
+        //    while (songs.Count >= 1)
+        //    {
+        //        count = rand.Next(songs.Count);
+        //        newSong.Add(songs[count]);
+        //        songs.RemoveAt(count);
+        //    }
+        //    return newSong;
+        //}
 
         public List<Song> SortByTitle(List<Song> songs)
         {
@@ -223,14 +241,72 @@ namespace MusicPlayer
             }
         }
 
-        //BL8-P3/3.Anonymous
-        public object GetSongData_2(Song song)
+        ////BL8-P3/3.Anonymous
+        //public object GetSongData_2(Song song)
+        //{
+        //    var durationMinutes = song.Duration / 60;
+        //    var durationSeconds = song.Duration % 60;
+        //    var anonim = new { song.Name, song.Album.Year, durationMinutes, durationSeconds };
+        //    Console.WriteLine($"{anonim.Name} - {anonim.Year} - {anonim.durationMinutes} - {anonim.durationSeconds}");
+        //    return anonim;
+        //}
+
+        //L9-HW-Player-3/3.
+        public void GetSongData_2(Song song)
         {
-            var durationMinutes = song.Duration / 60;
-            var durationSeconds = song.Duration % 60;
-            var anonim = new { song.Name, song.Album.Year, durationMinutes, durationSeconds };
-            Console.WriteLine($"{anonim.Name} - {anonim.Year} - {anonim.durationMinutes} - {anonim.durationSeconds}");
-            return anonim;
+            (string name, _, int durationMinutes, _) = song;
+            Console.WriteLine($"{name} - {durationMinutes}");
+        }
+
+        public static Skin GetSkin()
+        {
+            Console.WriteLine("How do you want to display the list of songs?:" +
+              "\n1-Displays text line by line in standard mode" +
+              "\n2-Displays text line by line in the color you specify" +
+              "\n3-Random text color output"+
+              "\n4-Caps Lock text");
+            var variant = Console.ReadLine();
+            Skin skin;
+            switch (variant)
+            {
+                case "1":
+                    skin = new ClassicSkin();
+                    break;
+                case "2":
+                    skin = new ColorSkin(ConsoleColor.Green);
+                    break;
+                case "3":
+                    skin = new ColorSkin_2();
+                    break;
+                case "4":
+                    skin = new СapslockSkin();
+                    break;
+                default:
+                    skin = new ClassicSkin();
+                    break;
+            }
+            return skin;
+        }
+        public void TraceInfo(List<Song> Song)
+        {
+            skin.Clear();
+            foreach (var i in Song)
+            {
+                skin.Render(SkinString(i));
+            }
+        }
+
+        public static string SkinString(Song song)
+        {
+            string list;
+            list = $"Name Artist: {song.Artist.Name}\n" +
+            $"Name song: {song.Name}\n" +
+            $"Genre: {song.Artist._Genre}\n" +
+            $"Album: {song.Album.Name}\n" +
+            $"Year of album release: {song.Album.Year}\n" +
+            $"Duration song: {song.Duration} second\n" +
+            $"Lyrics: {song.Lyrics}\n\n";
+            return list;
         }
     }
 }
