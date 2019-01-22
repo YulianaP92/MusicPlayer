@@ -14,12 +14,12 @@ namespace MusicPlayer
         public bool Locked;
         public bool Playing;
         public List<Song> Song;
-        private Skin skin;
+        private ISkin skin;
         public Player()
         {
 
         }
-        public Player(Skin skin)
+        public Player(ISkin skin)
         {
             this.skin = skin;
         }
@@ -258,34 +258,27 @@ namespace MusicPlayer
             Console.WriteLine($"{name} - {durationMinutes}");
         }
 
-        public static Skin GetSkin()
+        public static ISkin GetSkin()
         {
             Console.WriteLine("How do you want to display the list of songs?:" +
               "\n1-Displays text line by line in standard mode" +
               "\n2-Displays text line by line in the color you specify" +
-              "\n3-Random text color output"+
+              "\n3-Random text color output" +
               "\n4-Caps Lock text");
             var variant = Console.ReadLine();
-            Skin skin;
             switch (variant)
             {
                 case "1":
-                    skin = new ClassicSkin();
-                    break;
+                    return new ClassicSkin();
                 case "2":
-                    skin = new ColorSkin(ConsoleColor.Green);
-                    break;
+                    return new ColorSkin(ConsoleColor.Green);
                 case "3":
-                    skin = new ColorSkin_2();
-                    break;
+                    return new ColorSkin_2();
                 case "4":
-                    skin = new СapslockSkin();
-                    break;
+                    return new СapslockSkin();
                 default:
-                    skin = new ClassicSkin();
-                    break;
+                    return new ClassicSkin();
             }
-            return skin;
         }
         public void TraceInfo(List<Song> Song)
         {

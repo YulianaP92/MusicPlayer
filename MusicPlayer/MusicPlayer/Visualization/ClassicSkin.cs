@@ -2,14 +2,14 @@
 
 namespace MusicPlayer.Visualization
 {
-    class ClassicSkin : Skin
+    class ClassicSkin : ISkin
     {
-        public override void Clear()
+        public void Clear()
         {
             Console.Clear();
         }
 
-        public override void Render(string text)
+        public void Render(string text)
         {
             Console.WriteLine(text);
         }

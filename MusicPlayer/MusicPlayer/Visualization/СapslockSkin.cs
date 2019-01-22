@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace MusicPlayer.Visualization
 {
-    class СapslockSkin : Skin
+    class СapslockSkin : ISkin
     {
-        public override void Clear()
+        public void Clear()
         {
             Console.Clear();
         }
 
-        public override void Render(string text)
+        public void Render(string text)
         {
             string newText = text.ToUpper();
             Console.WriteLine(newText);

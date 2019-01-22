@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace MusicPlayer.Visualization
 {
-    class ColorSkin : Skin
+    class ColorSkin : ISkin
     {
         private ConsoleColor _color { get; set; }
         public ColorSkin(ConsoleColor color)
         {
             _color = color;
         }
-        public override void Clear()
+        public  void Clear()
         {
             Console.Clear();
         }
 
-        public override void Render(string text)
+        public  void Render(string text)
         {
             Console.ForegroundColor = _color;
             Console.WriteLine(text);

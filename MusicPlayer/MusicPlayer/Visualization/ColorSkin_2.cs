@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace MusicPlayer.Visualization
 {
-    class ColorSkin_2 : Skin
+    class ColorSkin_2 : ISkin
     {
-        public override void Clear()
+        public  void Clear()
         {
             Console.Clear();
             Console.WriteLine(new string('\u058d', 30));
         }
         
-        public override void Render(string text)
+        public  void Render(string text)
         {
             Random randomColor = new Random();
             var consoleColors = Enum.GetValues(typeof(ConsoleColor));//получаем массив цветов

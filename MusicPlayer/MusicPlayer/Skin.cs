@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MusicPlayer
 {
-   abstract class Skin
+    interface ISkin
     {
-        public abstract void Clear();//очистка экрана плеера
-        public abstract void Render(string text);//вывод строки на экран плеера
+        void Clear();//очистка экрана плеера
+        void Render(string text);//вывод строки на экран плеера
     }
 }
